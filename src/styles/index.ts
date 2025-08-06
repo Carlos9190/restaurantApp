@@ -5,7 +5,6 @@ export const globalStyles = StyleSheet.create({
     flex: 1,
   },
   content: {
-    flex: 1,
     marginHorizontal: '2.5%',
   },
   btn: {
@@ -19,8 +18,29 @@ export const globalStyles = StyleSheet.create({
   },
   title: {
     textAlign: 'center',
-    marginTop: 20,
-    marginBottom: 30,
+    marginTop: 40,
+    marginBottom: 20,
     fontSize: 30,
+  },
+  image: {
+    height: 300,
+    width: '100%',
+    borderRadius: 10,
+    marginVertical: 10,
+  },
+  amount: {
+    marginVertical: 10,
+    textAlign: 'center',
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+  footer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    elevation: 8,
+    padding: 25,
+    backgroundColor: 'white',
   },
 });

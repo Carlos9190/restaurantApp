@@ -1,4 +1,5 @@
 import { ReactNode, useReducer } from 'react';
+import _ from 'lodash';
 
 import firebase from '../../firebase';
 import FirebaseReducer from './firebaseReducer';
@@ -30,7 +31,7 @@ export default function FirebaseState({ children }: FirebaseStateProps) {
 
       // List on real time
       const unsubscribe = onSnapshot(productsRef, snapshot => {
-        const dishes = snapshot.docs.map(doc => {
+        let dishes = snapshot.docs.map(doc => {
           const data = doc.data();
           return {
             id: doc.id,
@@ -41,6 +42,9 @@ export default function FirebaseState({ children }: FirebaseStateProps) {
             available: data.available,
           } as Dish;
         });
+
+        // Ordering for category w lodash
+        dishes = _.sortBy(dishes, 'category');
 
         dispatch({
           type: GET_PRODUCTS_SUCCESS,

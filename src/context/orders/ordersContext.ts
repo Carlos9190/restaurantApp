@@ -1,6 +1,6 @@
 import { createContext } from 'react';
-import { Firebase } from '../../firebase/firebase';
+import { OrderContextProps } from '../../types';
 
-const OrderContext = createContext<Firebase | null>(null);
+const OrderContext = createContext<OrderContextProps>({} as OrderContextProps);
 
 export default OrderContext;

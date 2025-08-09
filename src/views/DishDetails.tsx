@@ -1,14 +1,11 @@
 import { useContext } from 'react';
 import { Image, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
 import { Button, Card, Surface, Text } from 'react-native-paper';
 import OrderContext from '../context/orders/ordersContext';
 import { imageMap } from '../../assets';
 import { globalStyles } from '../styles';
-import { RootStackParamList } from '../types';
-
-type NavigationProp = StackNavigationProp<RootStackParamList, 'DishForm'>;
+import { NavigationProp } from '../types';
 
 export default function DishDetails() {
   const navigation = useNavigation<NavigationProp>();

@@ -4,6 +4,7 @@ import 'react-native-gesture-handler';
 import FirebaseState from './src/context/firebase/FirebaseState';
 import OrderState from './src/context/orders/OrdersState';
 
+// Views
 import NewOrder from './src/views/NewOrder';
 import Menu from './src/views/Menu';
 import DishDetails from './src/views/DishDetails';
@@ -13,6 +14,10 @@ import OrderProgress from './src/views/OrderProgress';
 
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 
+// Components
+import ResumeButton from './src/components/ResumeButton';
+
+// React navigation
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { RootStackParamList } from './src/types';
@@ -57,6 +62,7 @@ export default function App() {
                 component={Menu}
                 options={{
                   title: 'Our menu',
+                  headerRight: props => <ResumeButton />,
                 }}
               />
               <Stack.Screen

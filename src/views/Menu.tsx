@@ -9,10 +9,7 @@ import OrderContext from '../context/orders/ordersContext';
 
 import { globalStyles } from '../styles';
 import { imageMap } from '../../assets';
-import { Dish, RootStackParamList } from '../types';
-import { StackNavigationProp } from '@react-navigation/stack';
-
-type NavigationProp = StackNavigationProp<RootStackParamList, 'DishDetails'>;
+import { Dish, NavigationProp } from '../types';
 
 export default function Menu() {
   // Firebase context
@@ -52,7 +49,7 @@ export default function Menu() {
   };
 
   return (
-    <View style={globalStyles.container}>
+    <View style={[globalStyles.container, { marginBottom: 50 }]}>
       <ScrollView>
         <View style={[globalStyles.content, { backgroundColor: '#FFF' }]}>
           {menu.map((dish, index) => (
@@ -60,7 +57,12 @@ export default function Menu() {
               {showHeading(dish.category, index)}
               <List.Item
                 title={dish.name}
-                description={`${dish.description} - $${dish.price}`}
+                description={() => (
+                  <>
+                    <Text>{dish.description}</Text>
+                    <Text>Price: ${dish.price}</Text>
+                  </>
+                )}
                 left={props => (
                   <Avatar.Image
                     {...props}

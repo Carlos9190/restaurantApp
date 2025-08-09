@@ -1,7 +1,6 @@
 import { useContext, useState, useEffect } from 'react';
 import { Alert, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
 import {
   Button,
   IconButton,
@@ -11,9 +10,7 @@ import {
 } from 'react-native-paper';
 import OrderContext from '../context/orders/ordersContext';
 import { globalStyles } from '../styles';
-import { Order, RootStackParamList } from '../types';
-
-type NavigationProp = StackNavigationProp<RootStackParamList, 'OrderResume'>;
+import { NavigationProp, Order } from '../types';
 
 export default function DishForm() {
   // State for quantities
@@ -55,8 +52,8 @@ export default function DishForm() {
   // Confirm if order is correct
   const confirmOrder = () => {
     Alert.alert(
-      'Do you want to confirm your order?',
-      'A confirmed order cannot be changed',
+      'Do you want to confirm this order?',
+      'A confirmed dish can be changed on the resume',
       [
         {
           text: 'Cancel',

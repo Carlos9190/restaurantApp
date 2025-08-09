@@ -1,11 +1,8 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
 import { globalStyles } from '../styles';
-import { RootStackParamList } from '../types';
-
-type NavigationProp = StackNavigationProp<RootStackParamList, 'NewOrder'>;
+import { NavigationProp } from '../types';
 
 export default function NewOrder() {
   const navigation = useNavigation<NavigationProp>();

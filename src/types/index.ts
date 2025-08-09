@@ -1,3 +1,4 @@
+import { StackNavigationProp } from '@react-navigation/stack';
 import { Firebase } from '../firebase/firebase';
 
 // Firebase
@@ -23,18 +24,24 @@ export type FirebaseAction = {
 export type OrderContextProps = {
   order: Order[];
   dish: Dish2;
+  total: string;
   selectDish: (dish: Dish2) => void;
   setOrder: (order: Order) => void;
+  showResume: (total: string) => void;
+  deleteItem: (id: string) => void;
 };
 
 export type OrderState = {
   order: Order[];
   dish: Dish2;
+  total: string;
 };
 
 // Order state
 export const SELECT_PRODUCT = 'SELECT_PRODUCT' as const;
 export const CONFIRM_ORDER_DISH = 'CONFIRM_ORDER_DISH' as const;
+export const SHOW_RESUMEN = 'SHOW_RESUMEN' as const;
+export const DELETE_PRODUCT = 'DELETE_PRODUCT' as const;
 
 export type OrderAction =
   | {
@@ -44,6 +51,14 @@ export type OrderAction =
   | {
       type: typeof CONFIRM_ORDER_DISH;
       payload: Order;
+    }
+  | {
+      type: typeof SHOW_RESUMEN;
+      payload: Order['total'];
+    }
+  | {
+      type: typeof DELETE_PRODUCT;
+      payload: DishBase['id'];
     };
 
 // Views
@@ -55,6 +70,9 @@ export type RootStackParamList = {
   OrderResume: undefined;
   OrderProgress: undefined;
 };
+
+// Navigation
+export type NavigationProp = StackNavigationProp<RootStackParamList>;
 
 export type DishBase = {
   id: string;

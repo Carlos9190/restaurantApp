@@ -2,7 +2,15 @@ import { ReactNode, useReducer } from 'react';
 import OrderReducer from './ordersReducer';
 import OrderContext from './ordersContext';
 
-import { Dish2, SELECT_PRODUCT, Order, CONFIRM_ORDER_DISH } from '../../types';
+import {
+  Dish2,
+  SELECT_PRODUCT,
+  Order,
+  CONFIRM_ORDER_DISH,
+  SHOW_RESUMEN,
+  DELETE_PRODUCT,
+  DishBase,
+} from '../../types';
 
 type OrderStateProps = {
   children: ReactNode;
@@ -20,6 +28,7 @@ export default function OrderState({ children }: OrderStateProps) {
   const initialState = {
     order: [],
     dish: initialDish,
+    total: '0',
   };
 
   // useReducer w dispatch to use functions
@@ -41,13 +50,32 @@ export default function OrderState({ children }: OrderStateProps) {
     });
   };
 
+  // Displays total amount on OrderResume
+  const showResume = (total: Order['total']) => {
+    dispatch({
+      type: SHOW_RESUMEN,
+      payload: total,
+    });
+  };
+
+  // Delete an item from order resume
+  const deleteItem = (id: DishBase['id']) => {
+    dispatch({
+      type: DELETE_PRODUCT,
+      payload: id,
+    });
+  };
+
   return (
     <OrderContext.Provider
       value={{
         order: state.order,
         dish: state.dish,
+        total: state.total,
         selectDish,
         setOrder,
+        showResume,
+        deleteItem,
       }}
     >
       {children}

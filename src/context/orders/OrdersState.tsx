@@ -9,6 +9,7 @@ import {
   CONFIRM_ORDER_DISH,
   SHOW_RESUMEN,
   DELETE_PRODUCT,
+  CONFIRMED_ORDER,
   DishBase,
 } from '../../types';
 
@@ -29,6 +30,7 @@ export default function OrderState({ children }: OrderStateProps) {
     order: [],
     dish: initialDish,
     total: '0',
+    orderId: '',
   };
 
   // useReducer w dispatch to use functions
@@ -66,16 +68,26 @@ export default function OrderState({ children }: OrderStateProps) {
     });
   };
 
+  // Create an order (DB)
+  const completedOrder = (id: Order['id']) => {
+    dispatch({
+      type: CONFIRMED_ORDER,
+      payload: id,
+    });
+  };
+
   return (
     <OrderContext.Provider
       value={{
         order: state.order,
         dish: state.dish,
         total: state.total,
+        orderId: state.orderId,
         selectDish,
         setOrder,
         showResume,
         deleteItem,
+        completedOrder,
       }}
     >
       {children}

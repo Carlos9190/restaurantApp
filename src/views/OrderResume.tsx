@@ -1,17 +1,20 @@
 import { useContext, useEffect } from 'react';
 import { Alert, ScrollView, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { Avatar, Button, List, Surface, Text } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
+import { addDoc, collection } from 'firebase/firestore';
+import firebase from '../firebase';
 import OrderContext from '../context/orders/ordersContext';
 import { globalStyles } from '../styles';
-import { DishBase, NavigationProp } from '../types';
+import { DishBase, NavigationProp, OrderSent } from '../types';
 import { imageMap } from '../../assets';
 
 export default function OrderResume() {
   const navigation = useNavigation<NavigationProp>();
 
   // Order context
-  const { order, total, showResume, deleteItem } = useContext(OrderContext);
+  const { order, total, showResume, deleteItem, completedOrder } =
+    useContext(OrderContext);
 
   useEffect(() => {
     calcTotal();
@@ -39,9 +42,29 @@ export default function OrderResume() {
         },
         {
           text: 'Confirm',
-          onPress: () => {
-            // Navigate to order progress
-            navigation.navigate('OrderProgress');
+          onPress: async () => {
+            // Create an object
+            const orderObj: OrderSent = {
+              time: 0,
+              completed: false,
+              total: Number(total),
+              order, // Array
+              createdAt: Date.now(),
+            };
+
+            // Save order on firebase
+            try {
+              if (firebase) {
+                const productsRef = collection(firebase.db, 'orders');
+                const order = await addDoc(productsRef, orderObj);
+                completedOrder(order.id);
+
+                // Navigate to order progress
+                navigation.navigate('OrderProgress');
+              }
+            } catch (error) {
+              console.log(error);
+            }
           },
         },
       ],

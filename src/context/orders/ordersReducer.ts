@@ -5,6 +5,7 @@ import {
   CONFIRM_ORDER_DISH,
   SHOW_RESUMEN,
   DELETE_PRODUCT,
+  CONFIRMED_ORDER,
 } from '../../types';
 
 export default function firebaseReducer(
@@ -34,6 +35,12 @@ export default function firebaseReducer(
       return {
         ...state,
         order: state.order.filter(item => item.id !== action.payload),
+      };
+
+    case CONFIRMED_ORDER:
+      return {
+        ...state,
+        orderId: action.payload,
       };
 
     default:

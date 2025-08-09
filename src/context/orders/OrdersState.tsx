@@ -2,7 +2,7 @@ import { ReactNode, useReducer } from 'react';
 import OrderReducer from './ordersReducer';
 import OrderContext from './ordersContext';
 
-import { Dish2, SELECT_PRODUCT } from '../../types';
+import { Dish2, SELECT_PRODUCT, Order, CONFIRM_ORDER_DISH } from '../../types';
 
 type OrderStateProps = {
   children: ReactNode;
@@ -33,12 +33,21 @@ export default function OrderState({ children }: OrderStateProps) {
     });
   };
 
+  // When user confirms an order
+  const setOrder = (order: Order) => {
+    dispatch({
+      type: CONFIRM_ORDER_DISH,
+      payload: order,
+    });
+  };
+
   return (
     <OrderContext.Provider
       value={{
         order: state.order,
         dish: state.dish,
         selectDish,
+        setOrder,
       }}
     >
       {children}

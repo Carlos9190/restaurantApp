@@ -1,4 +1,9 @@
-import { OrderState, OrderAction, SELECT_PRODUCT } from '../../types';
+import {
+  OrderState,
+  OrderAction,
+  SELECT_PRODUCT,
+  CONFIRM_ORDER_DISH,
+} from '../../types';
 
 export default function firebaseReducer(
   state: OrderState,
@@ -9,6 +14,12 @@ export default function firebaseReducer(
       return {
         ...state,
         dish: action.payload,
+      };
+
+    case CONFIRM_ORDER_DISH:
+      return {
+        ...state,
+        order: [...state.order, action.payload],
       };
 
     default:

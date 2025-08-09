@@ -21,23 +21,30 @@ export type FirebaseAction = {
 
 // Order
 export type OrderContextProps = {
-  order: Dish[];
+  order: Order[];
   dish: Dish2;
   selectDish: (dish: Dish2) => void;
+  setOrder: (order: Order) => void;
 };
 
 export type OrderState = {
-  order: Dish[];
+  order: Order[];
   dish: Dish2;
 };
 
 // Order state
 export const SELECT_PRODUCT = 'SELECT_PRODUCT' as const;
+export const CONFIRM_ORDER_DISH = 'CONFIRM_ORDER_DISH' as const;
 
-export type OrderAction = {
-  type: typeof SELECT_PRODUCT;
-  payload: Dish2;
-};
+export type OrderAction =
+  | {
+      type: typeof SELECT_PRODUCT;
+      payload: Dish2;
+    }
+  | {
+      type: typeof CONFIRM_ORDER_DISH;
+      payload: Order;
+    };
 
 // Views
 export type RootStackParamList = {
@@ -49,19 +56,21 @@ export type RootStackParamList = {
   OrderProgress: undefined;
 };
 
-export type Dish = {
+export type DishBase = {
   id: string;
   name: string;
   price: string;
   category: string;
   description: string;
+};
+
+export type Dish = DishBase & {
   available: boolean;
 };
 
-export type Dish2 = {
-  id: string;
-  name: string;
-  price: string;
-  category: string;
-  description: string;
+export type Dish2 = DishBase;
+
+export type Order = DishBase & {
+  quantity: string;
+  total: string;
 };

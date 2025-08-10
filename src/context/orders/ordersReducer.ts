@@ -40,6 +40,8 @@ export default function firebaseReducer(
     case CONFIRMED_ORDER:
       return {
         ...state,
+        order: [],
+        total: '0',
         orderId: action.payload,
       };
 

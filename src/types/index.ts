@@ -24,19 +24,19 @@ export type FirebaseAction = {
 export type OrderContextProps = {
   order: Order[];
   dish: Dish2;
-  total: string;
+  total: Order['total'];
   orderId: Order['id'];
   selectDish: (dish: Dish2) => void;
   setOrder: (order: Order) => void;
-  showResume: (total: string) => void;
-  deleteItem: (id: string) => void;
-  completedOrder: (id: string) => void;
+  showResume: (total: Order['total']) => void;
+  deleteItem: (id: DishBase['id']) => void;
+  completedOrder: (id: Order['id']) => void;
 };
 
 export type OrderState = {
   order: Order[];
   dish: Dish2;
-  total: string;
+  total: Order['total'];
   orderId: Order['id'];
 };
 
